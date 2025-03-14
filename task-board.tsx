@@ -180,7 +180,7 @@ function SortableTaskItem({
   onUpdateTask: (taskId: string, title: string, estimation: EstimationType, color: string) => void
   onCancelEdit: () => void
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: task.id })
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: task.id, disabled: isEditing, })
 
   const style = {
     transform: CSS.Transform.toString(transform),
