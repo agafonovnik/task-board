@@ -362,12 +362,20 @@ export default function TaskBoard() {
     }
   }, [
     // Зависимости, которые вызывают пересчет
-    people
-      .map((p) => p.tasks.map((t) => `${t.id}-${t.estimation}`).join(","))
-      .join("|"),
-    people.map((p) => p.level).join(","),
-    JSON.stringify(estimationWeights), // Используем JSON.stringify для корректного отслеживания изменений
-  ])
+    JSON.stringify(
+      people.map((p) => ({
+        id: p.id,
+        level: p.level,
+        tasks: p.tasks.map((t) => ({
+          id: t.id,
+          title: t.title,
+          estimation: t.estimation,
+          color: t.color,
+        })),
+      })),
+    ),
+    JSON.stringify(estimationWeights),
+    ])
 
   const handleAddPerson = (name: string, level: LevelType) => {
     const newPerson: Person = {
